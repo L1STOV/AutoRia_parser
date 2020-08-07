@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from prettytable import PrettyTable
 
 
 def parse():
@@ -23,9 +24,11 @@ def parse():
             'runtime': item.find('li', class_='item-char').get_text(strip = True)
         })
 
+    table = PrettyTable()
+    table.field_names = ['Название авто', "Цена", "Локация", "Пробег"]
     for car in cars:
-        print(car['title'] + ' |', car['price'] + "$ |", car['location'] + " |", car['runtime'] + ' |')
-        print("-------------------------------------------------------")
+        table.add_row([car['title'], car['price'], car['location'], car['runtime']])
+    print(table)
 
 
 parse()
