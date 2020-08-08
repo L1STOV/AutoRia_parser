@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 from prettytable import PrettyTable
-import os
 
 
 def parse():
@@ -27,10 +26,13 @@ def parse():
 
     table = PrettyTable()
     table.field_names = ['Название авто', "Цена, $", "Локация", "Пробег"]
+
     file = open('cars.txt', "w", encoding="utf-8")
+
     for car in cars:
         table.add_row([car['title'], car['price'], car['location'], car['runtime']])
     file.write(str(table))
     file.close()
+
 
 parse()
