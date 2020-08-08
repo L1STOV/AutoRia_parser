@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
 from prettytable import PrettyTable
+import os
 
 
 def parse():
-    URL = "https://auto.ria.com/legkovie/bmw/325/"
+    URL = "https://auto.ria.com/legkovie/opel/astra/"
     HEADERS = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/83.0.4103.106 Safari/537.36 '
@@ -25,10 +26,11 @@ def parse():
         })
 
     table = PrettyTable()
-    table.field_names = ['Название авто', "Цена", "Локация", "Пробег"]
+    table.field_names = ['Название авто', "Цена, $", "Локация", "Пробег"]
+    file = open('cars.txt', "w", encoding="utf-8")
     for car in cars:
         table.add_row([car['title'], car['price'], car['location'], car['runtime']])
-    print(table)
-
+    file.write(str(table))
+    file.close()
 
 parse()
