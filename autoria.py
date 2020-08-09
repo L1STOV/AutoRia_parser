@@ -15,8 +15,12 @@ while True:
         for item in items:
             car_object = Car()
             a_element = item.find('div', class_='content').find('a')
+            span_element = item.find('span', class_='bold green size22')
+            i_element = item.find('li', class_='item-char')
             car_object.url = a_element['href']
             car_object.title = a_element['title']
+            car_object.price = span_element.get_text(strip=True)
+            car_object.runtime = i_element.get_text(strip=True)
             local_list_of_parsed_cars.append(car_object)
         return local_list_of_parsed_cars
 
@@ -37,6 +41,8 @@ while True:
     for car in list_of_parsed_cars:
         print(car.url)
         print(car.title)
+        print(car.price + " $")
+        print(car.runtime)
         print('\n')
         file.write(car.url + '\n')
     file.close()
